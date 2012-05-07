@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string.h>
 #include <stdio.h>
+#include <limits.h>
 
 #include <libxml2/libxml/xmlexports.h>
 #include <libxml2/libxml/xmlversion.h>
@@ -25,21 +26,39 @@ using namespace std;
 //const string baseUrl="http://shanon.iuii.ua.es/test/home/";
 typedef boost::shared_ptr<Device> Device_ptr;
 
+class Config;
 
 class System
 {
 private:
     vector<Device_ptr> devices;
     int atoi(string n);
+    int maxDevices;
+    string host;
 
 public:
-    System();
+    System(const Config &c);
     ~System();
     void LoadDevices();
     void PrintDevices();
-    vector<Device_ptr> GetDevicesByService(SERVICE service);
-    vector<Device_ptr> GetDevicesFromRoom(string room);
-    Device_ptr GetDeviceById(int id);
+    vector<Device_ptr> getDevicesByService(SERVICE service);
+    vector<Device_ptr> getDevicesFromRoom(string room);
+    Device_ptr getDeviceById(int id);
+};
+
+class Config
+{
+    private:
+        friend class System;
+        string host;
+        int maxNumDevices;
+
+    public:
+        Config(string _host){host=_host; maxNumDevices=INT_MAX;};
+        Config &maxDevices(int max){maxNumDevices=max; return *this;}
+
+
+
 };
 
 

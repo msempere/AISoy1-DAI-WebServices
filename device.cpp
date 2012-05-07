@@ -51,32 +51,32 @@ void Device::Print(){
 void Device::AddFuncionality(Funcionality  f){
     int t;
     from_string<int>(t,id,std::dec);
-    f.SetIdPadre(t);
+    f.setIdPadre(t);
     functionalities.push_back(f);
 }
 
-Funcionality* Device::GetFuncionality(string name){
+Funcionality* Device::getFuncionality(string name){
     for(int i=0;i<functionalities.size();i++){
-        if(functionalities.at(i).GetName()==name){
+        if(functionalities.at(i).getName()==name){
             return &functionalities.at(i);
         }
     }
 }
 
-string Device::GetFuncionalityValue(string f){
+string Device::getFuncionalityValue(string f){
 
     for(int i=0;i<functionalities.size();i++){
-        if(functionalities.at(i).GetName()==f){
-            return functionalities.at(i).GetValue();
+        if(functionalities.at(i).getName()==f){
+            return functionalities.at(i).getValue();
         }
     }
 }
 
-bool Device::SetFuncionalityValue(string f, int v){
+bool Device::setFuncionalityValue(string f, int v){
 
     for(int i=0;i<functionalities.size();i++){
-        if(functionalities.at(i).GetName()==f){
-            return functionalities.at(i).SetValue(v);
+        if(functionalities.at(i).getName()==f){
+            return functionalities.at(i).setValue(v);
         }
     }
 }

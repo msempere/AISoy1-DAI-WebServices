@@ -15,6 +15,7 @@ using namespace std;
 class Device
 {
 private:
+    string host;
     string id;
     string name;
     SERVICE services;
@@ -25,30 +26,31 @@ private:
     string description;
     string typeOfCompo;
     vector<Funcionality> functionalities;
-    SERVICE GetServiceFromString(string s);
+    SERVICE getServiceFromString(string s);
 public:
     Device();
     ~Device();
     Device(string _id,string _name, string _service, string _room, string _type, string _techno, string _locationCoor, string _description, string _typeOfCompo);
-    void SetId(string _id){id=_id;};
-    void SetName(string _name){name=_name;};
-    void SetServices(SERVICE _services){services=_services;};
-    void SetRoom(string _room){room=_room;};
-    void SetType(string _type){type=_type;};
-    void SetTechno(string _techno){techno=_techno;};
-    void SetLocationCoor(string _locationCoor){locationCoor=_locationCoor;};
-    void SetDescription(string _description){description=_description;};
-    void SetTypeOfCompo(string _typeOfCompo){typeOfCompo=_typeOfCompo;};
+    void setId(string _id){id=_id;};
+    void setName(string _name){name=_name;};
+    void setServices(SERVICE _services){services=_services;};
+    void setRoom(string _room){room=_room;};
+    void setType(string _type){type=_type;};
+    void setTechno(string _techno){techno=_techno;};
+    void setLocationCoor(string _locationCoor){locationCoor=_locationCoor;};
+    void setDescription(string _description){description=_description;};
+    void setTypeOfCompo(string _typeOfCompo){typeOfCompo=_typeOfCompo;};
+    void setHost(string h){host=h;};
 
 
-    string GetId(){return id;};
-    SERVICE GetServices(){return services;};
-    string GetName(){return name;};
-    string GetRoom(){return room;};
-    string GetFuncionalityValue(string f);
-    Funcionality* GetFuncionality(string name);
+    string getId(){return id;};
+    SERVICE getServices(){return services;};
+    string getName(){return name;};
+    string getRoom(){return room;};
+    string getFuncionalityValue(string f);
+    Funcionality* getFuncionality(string name);
 
-    bool SetFuncionalityValue(string f, int v);
+    bool setFuncionalityValue(string f, int v);
 
     void AddFuncionality(Funcionality f);
     void Print();

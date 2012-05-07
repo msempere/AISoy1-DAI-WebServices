@@ -15,11 +15,12 @@
 
 using namespace std;
 
-const string baseUrl="http://shanon.iuii.ua.es/test/home/";
+//const string baseUrl="http://shanon.iuii.ua.es/test/home/";
 
 class Funcionality
 {
 private:
+    string host;
     int id_padre;
     string name;
     string description;
@@ -34,21 +35,22 @@ public:
     Funcionality();
     ~Funcionality();
     Funcionality(string _name,string _description, string _range, string _inputValue, string _returnValue);
-    void SetName(string _name){name=_name;};
-    void SetDescription(string _description){description=_description;};
-    void SetRange(string _range);
-    void SetInputValue(string _inputValue){inputValue=_inputValue;};
-    void SetReturnValue(string _returnValue){returnValue=_returnValue;};
-    void SetIdPadre(int id){id_padre=id;};
+    void setName(string _name){name=_name;};
+    void setDescription(string _description){description=_description;};
+    void setRange(string _range);
+    void setInputValue(string _inputValue){inputValue=_inputValue;};
+    void setReturnValue(string _returnValue){returnValue=_returnValue;};
+    void setIdPadre(int id){id_padre=id;};
+    void setHost(string h){host=h;};
 
-    string GetName(){return name;};
-    string GetDescription(){return description;};
-    string GetInputValue(){return inputValue;};
-    string GetReturnValue(){return returnValue;};
-    pair<int,int> GetRange();
+    string getName(){return name;};
+    string getDescription(){return description;};
+    string getInputValue(){return inputValue;};
+    string getReturnValue(){return returnValue;};
+    pair<int,int> getRange();
 
-    string GetValue();
-    bool SetValue(int new_value);
+    string getValue();
+    bool setValue(int new_value);
 
     void Print();
 };

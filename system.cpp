@@ -1,8 +1,10 @@
 #include "system.h"
 
 
-System::System()
+System::System(const Config &c)
 {
+    host=c.host;
+    maxDevices=c.maxNumDevices;
 }
 
 System::~System()
@@ -11,7 +13,7 @@ System::~System()
 
 void System::LoadDevices()
 {
-    string url=baseUrl+"all/home-devices";
+    string url=host+"all/home-devices";
     //string url="/home/miguel/workspace/RestWS/home-devices.xml";
     xmlDocPtr doc;
     doc = xmlParseFile(url.c_str());
@@ -24,6 +26,7 @@ void System::LoadDevices()
 
     xmlNode *root = NULL;
     root = xmlDocGetRootElement(doc);
+    int count=0;
 
     if( !root || !root->name || xmlStrcmp(root->name,(const xmlChar *)"devices") )
     {
@@ -35,49 +38,51 @@ void System::LoadDevices()
 
     xmlNode *cur_node, *child_node, *child_func;
 
-    for(cur_node = root->children; cur_node != NULL; cur_node = cur_node->next){
+    for(cur_node = root->children; cur_node != NULL && count<maxDevices; cur_node = cur_node->next){
         if ( cur_node->type == XML_ELEMENT_NODE  && !xmlStrcmp(cur_node->name, (const xmlChar *) "device" )){
 
             Device dev;
+            dev.setHost(host);
 
             //para cada propiedad de device
             for(child_node = cur_node->children; child_node != NULL; child_node = child_node->next){
                 if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(child_node->name, (const xmlChar *)"id") )
-                    dev.SetId((char *)xmlNodeGetContent(child_node));
+                    dev.setId((char *)xmlNodeGetContent(child_node));
                 if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(child_node->name, (const xmlChar *)"name") )
-                    dev.SetName((char *)xmlNodeGetContent(child_node));
+                    dev.setName((char *)xmlNodeGetContent(child_node));
                 if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(child_node->name, (const xmlChar *)"services") )
-                    dev.SetServices(StringToService((char *)xmlNodeGetContent(child_node)));
+                    dev.setServices(StringToService((char *)xmlNodeGetContent(child_node)));
                 if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(child_node->name, (const xmlChar *)"room") )
-                    dev.SetRoom((char *)xmlNodeGetContent(child_node));
+                    dev.setRoom((char *)xmlNodeGetContent(child_node));
                 if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(child_node->name, (const xmlChar *)"type") )
-                    dev.SetType((char *)xmlNodeGetContent(child_node));
+                    dev.setType((char *)xmlNodeGetContent(child_node));
                 if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(child_node->name, (const xmlChar *)"techno") )
-                    dev.SetTechno((char *)xmlNodeGetContent(child_node));
+                    dev.setTechno((char *)xmlNodeGetContent(child_node));
                 if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(child_node->name, (const xmlChar *)"locationCoor") )
-                    dev.SetLocationCoor((char *)xmlNodeGetContent(child_node));
+                    dev.setLocationCoor((char *)xmlNodeGetContent(child_node));
                 if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(child_node->name, (const xmlChar *)"description") )
-                    dev.SetDescription((char *)xmlNodeGetContent(child_node));
+                    dev.setDescription((char *)xmlNodeGetContent(child_node));
                 if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(child_node->name, (const xmlChar *)"typeOfCompo") )
-                    dev.SetTypeOfCompo((char *)xmlNodeGetContent(child_node));
+                    dev.setTypeOfCompo((char *)xmlNodeGetContent(child_node));
                 if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(child_node->name, (const xmlChar *)"functionality") ){
 
 
                     Funcionality func;
+                    func.setHost(host);
 
                     //para cada propiedad de un funcionality
                     for(child_func = child_node->children; child_func != NULL; child_func = child_func->next){
 
                         if(child_func->type == XML_ELEMENT_NODE && !xmlStrcmp(child_func->name, (const xmlChar *)"name") )
-                            func.SetName((char *)xmlNodeGetContent(child_func));
+                            func.setName((char *)xmlNodeGetContent(child_func));
                         if(child_func->type == XML_ELEMENT_NODE && !xmlStrcmp(child_func->name, (const xmlChar *)"description") )
-                            func.SetDescription((char *)xmlNodeGetContent(child_func));
+                            func.setDescription((char *)xmlNodeGetContent(child_func));
                         if(child_func->type == XML_ELEMENT_NODE && !xmlStrcmp(child_func->name, (const xmlChar *)"range") )
-                            func.SetRange((char *)xmlNodeGetContent(child_func));
+                            func.setRange((char *)xmlNodeGetContent(child_func));
                         if(child_func->type == XML_ELEMENT_NODE && !xmlStrcmp(child_func->name, (const xmlChar *)"inputValue") )
-                            func.SetInputValue((char *)xmlNodeGetContent(child_func));
+                            func.setInputValue((char *)xmlNodeGetContent(child_func));
                         if(child_func->type == XML_ELEMENT_NODE && !xmlStrcmp(child_func->name, (const xmlChar *)"returnValue") )
-                            func.SetReturnValue((char *)xmlNodeGetContent(child_func));
+                            func.setReturnValue((char *)xmlNodeGetContent(child_func));
 
                     }
 
@@ -87,6 +92,7 @@ void System::LoadDevices()
             }
             devices.push_back(boost::make_shared<Device>(dev));
         }
+        count++;
     }
 
     xmlFreeNode(cur_node);
@@ -106,13 +112,13 @@ void System::PrintDevices(){
             devices.at(i)->Print();
 }
 
-vector<boost::shared_ptr<Device> > System::GetDevicesByService(SERVICE service){
+vector<boost::shared_ptr<Device> > System::getDevicesByService(SERVICE service){
 
     vector<Device_ptr> ret;
     std::vector<Device_ptr>::iterator iter;
 
     for(iter=devices.begin();iter!=devices.end();++iter)
-        if((*iter)->GetServices()==service)
+        if((*iter)->getServices()==service)
             ret.push_back(*iter);
     return ret;
 }
@@ -134,24 +140,24 @@ int System::atoi(string n){
 	return num;
 }
 
-Device_ptr System::GetDeviceById(int id){
+Device_ptr System::getDeviceById(int id){
 
     std::vector<Device_ptr>::iterator iter;
 
     for(iter=devices.begin();iter!=devices.end();++iter)
-        if(atoi((*iter)->GetId())==id)
+        if(atoi((*iter)->getId())==id)
             return (*iter);
 }
 
 
 
-vector<Device_ptr> System::GetDevicesFromRoom(string room){
+vector<Device_ptr> System::getDevicesFromRoom(string room){
 
     vector<Device_ptr> ret;
     std::vector<Device_ptr>::iterator iter;
 
     for(iter=devices.begin();iter!=devices.end();++iter)
-        if((*iter)->GetRoom()==room)
+        if((*iter)->getRoom()==room)
             ret.push_back(*iter);
 
     return ret;

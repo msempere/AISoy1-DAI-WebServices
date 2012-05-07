@@ -37,15 +37,15 @@ void Funcionality::Print()
 }
 
 
-bool Funcionality::SetValue(int new_value)
+bool Funcionality::setValue(int new_value)
 {
 
     if(new_value<min_range || new_value>max_range)
         return false;
 
-    string url=baseUrl;
+    string url=host;
     url.append("device/").append(to_string<int>(id_padre));
-    url.append("/setvalue/").append(GetName()+"/"+to_string<int>(new_value));
+    url.append("/setvalue/").append(getName()+"/"+to_string<int>(new_value));
 
 
     xmlDocPtr doc;
@@ -124,7 +124,7 @@ std::vector<std::string> Funcionality::split(const std::string &s, char delim)
 }
 
 
-void Funcionality::SetRange(string _range)
+void Funcionality::setRange(string _range)
 {
     range=_range;
     vector<std::string> x = split(_range, '#');
@@ -143,7 +143,7 @@ void Funcionality::SetRange(string _range)
 }
 
 
-pair<int,int> Funcionality::GetRange()
+pair<int,int> Funcionality::getRange()
 {
     pair<int,int> ret;
     ret.first=min_range;
@@ -152,10 +152,10 @@ pair<int,int> Funcionality::GetRange()
 }
 
 
-string Funcionality::GetValue()
+string Funcionality::getValue()
 {
 
-    string url=baseUrl+"device/"+to_string<int>(id_padre)+"/getvalue/"+GetName();
+    string url=host+"device/"+to_string<int>(id_padre)+"/getvalue/"+getName();
     string dev="";
 
     xmlDocPtr doc;

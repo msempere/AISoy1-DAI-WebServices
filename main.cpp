@@ -7,29 +7,30 @@ using namespace std;
 
 int main (int argc, const char* argv[])
 {
-    System s;
+    System s=Config("http://shanon.iuii.ua.es/test/home/").maxDevices(1);
     s.LoadDevices();
-    //std::cout<<s.GetDeviceById(33)->GetName()<<std::endl;
-    //std::cout<<s.GetDeviceById(33)->GetFuncionalityValue("dataKwh")<<std::endl;
-    //std::cout<<s.GetDeviceById(33)->GetFuncionality("dataKwh")->GetValue()<<std::endl;
-    //std::cout<<s.GetDeviceById(32)->SetFuncionalityValue("moveBlind",0)<<std::endl;
-    //std::cout<<s.GetDeviceById(32)->GetFuncionality("moveBlind")->GetValue()<<std::endl;
-    //s.PrintDevices();
+    //std::cout<<s.getDeviceById(33)->getName()<<std::endl;
+    //std::cout<<s.getDeviceById(33)->getFuncionalityValue("dataKwh")<<std::endl;
+    //std::cout<<s.getDeviceById(33)->getFuncionality("dataKwh")->getValue()<<std::endl;
+    //std::cout<<s.getDeviceById(32)->setFuncionalityValue("moveBlind",0)<<std::endl;
+    //std::cout<<s.getDeviceById(32)->getFuncionality("moveBlind")->getValue()<<std::endl;
+    s.PrintDevices();
 
-    //std::cout<<s.GetDeviceById(28)->GetFuncionality("dataTemp")->GetName()<<std::endl;
-    //std::cout<<s.GetDeviceById(28)->GetFuncionality("dataTemp")->GetRange().first<<std::endl;
-    //std::cout<<s.GetDeviceById(1)->GetFuncionality("dimmer")->GetValue()<<std::endl;
-    //std::cout<<s.GetDeviceById(1)->GetFuncionality("dimmer")->SetValue(5)<<std::endl;
-    //std::cout<<s.GetDeviceById(1)->GetFuncionality("dimmer")->GetValue()<<std::endl;
+    //std::cout<<s.getDeviceById(28)->getFuncionality("dataTemp")->getName()<<std::endl;
+    //std::cout<<s.getDeviceById(28)->getFuncionality("dataTemp")->getRange().first<<std::endl;
+    //std::cout<<s.getDeviceById(1)->getFuncionality("dimmer")->getValue()<<std::endl;
+    //std::cout<<s.getDeviceById(1)->getFuncionality("dimmer")->setValue(5)<<std::endl;
+    //std::cout<<s.getDeviceById(1)->getFuncionality("dimmer")->getValue()<<std::endl;
 
 
-    //std::cout<<s.GetDeviceById(33)->GetName()<<std::endl;
+    //std::cout<<s.getDeviceById(33)->getName()<<std::endl;
 
-    vector<Device_ptr> v=s.GetDevicesByService(Blinds);
+    /*
+    vector<Device_ptr> v=s.getDevicesByService(Blinds);
 
     for(unsigned int i=0;i<v.size();i++)
-        std::cout<<v.at(i)->GetName()<<std::endl;
-
+        std::cout<<v.at(i)->getName()<<std::endl;
+    */
 
     /*
     SERVICES:
