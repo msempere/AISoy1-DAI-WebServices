@@ -11,8 +11,10 @@ System::~System()
 {
 }
 
-void System::LoadDevices()
+bool System::LoadDevices()
 {
+    devices.clear();
+
     string url=host+"home/all/home-devices";
     //string url="/home/miguel/workspace/RestWS/home-devices.xml";
     xmlDocPtr doc;
@@ -21,7 +23,7 @@ void System::LoadDevices()
 
     if (doc == NULL){
         std:cerr<<"Error: imposible parsear "+url<<std::endl;
-        exit(-1);
+        return false;
     }
 
     xmlNode *root = NULL;
@@ -33,7 +35,7 @@ void System::LoadDevices()
         xmlFreeDoc(doc);
         xmlCleanupParser();
         std::cerr<<"Error: No existe elemento root o problemas con las etiquetas de los devices."<<std::endl;
-        exit(-1);
+        return false;
     }
 
     xmlNode *cur_node, *child_node, *child_func;
@@ -95,12 +97,14 @@ void System::LoadDevices()
         count++;
     }
 
-    xmlFreeNode(cur_node);
-    xmlFreeNode(child_node);
-    xmlFreeNode(child_func);
-    xmlFreeDoc(doc);
+    //xmlFreeNode(cur_node);
+    //xmlFreeNode(child_node);
+    //xmlFreeNode(child_func);
+    //xmlFreeDoc(doc);
     xmlCleanupParser();
 
+    loaded_devices=true;
+    return true;
 }
 
 void System::PrintDevices(){

@@ -96,12 +96,12 @@ bool Funcionality::setValue(int new_value)
         }
     }
 
-    xmlFreeNode(cur_node);
-    xmlFreeNode(child_node);
-    xmlFreeNode(root);
-    xmlFreeNode(child_func);
-    xmlFreeDoc(doc);
-    xmlCleanupParser();
+    //xmlFreeNode(cur_node);
+    //xmlFreeNode(child_node);
+    //xmlFreeNode(root);
+    //xmlFreeNode(child_func);
+    //xmlFreeDoc(doc);
+    //xmlCleanupParser();
     return dev;
 }
 
@@ -164,13 +164,13 @@ string Funcionality::getValue()
 
     if (doc == NULL)
     {
-std:
-        cerr<<"Error: imposible parsear "+url<<std::endl;
+        std::cerr<<"Error: imposible parsear "+url<<std::endl;
         exit(-1);
     }
 
     xmlNode *root = NULL;
     root = xmlDocGetRootElement(doc);
+
 
     if( !root || !root->name || xmlStrcmp(root->name,(const xmlChar *)"response") )
     {
@@ -186,9 +186,9 @@ std:
     {
         if ( cur_node->type == XML_ELEMENT_NODE  && !xmlStrcmp(cur_node->name, (const xmlChar *) "value" ))
         {
-
             if(xmlHasProp(cur_node,(const xmlChar *) "type"))
             {
+
                 if(strcmp((char *)xmlGetProp(cur_node,(xmlChar *)"type"),"error")==0)
                 {
                 }
@@ -202,11 +202,11 @@ std:
         }
     }
 
-    xmlFreeNode(cur_node);
-    xmlFreeNode(child_node);
-    xmlFreeNode(root);
-    xmlFreeNode(child_func);
-    xmlFreeDoc(doc);
+    //xmlFreeNode(cur_node);
+    //xmlFreeNode(child_node);
+    //xmlFreeNode(root);
+    //xmlFreeNode(child_func);
+    //xmlFreeDoc(doc);
     xmlCleanupParser();
     return dev;
 }

@@ -36,11 +36,12 @@ private:
     int atoi(string n);
     int maxDevices;
     string host;
+    bool loaded_devices;
 
 public:
     System(const Config &c);
     ~System();
-    void LoadDevices();
+    bool LoadDevices();
     void PrintDevices();
     vector<Device_ptr> getDevicesByService(SERVICE service);
     vector<Device_ptr> getDevicesFromRoom(string room);
