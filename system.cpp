@@ -13,7 +13,7 @@ System::~System()
 
 void System::LoadDevices()
 {
-    string url=host+"all/home-devices";
+    string url=host+"home/all/home-devices";
     //string url="/home/miguel/workspace/RestWS/home-devices.xml";
     xmlDocPtr doc;
     doc = xmlParseFile(url.c_str());
@@ -163,3 +163,6 @@ vector<Device_ptr> System::getDevicesFromRoom(string room){
     return ret;
 }
 
+bool System::ActivateScene(SCENE scene){
+    return activateScene(host,scene);
+}

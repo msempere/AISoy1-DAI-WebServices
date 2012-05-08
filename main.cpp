@@ -7,14 +7,17 @@ using namespace std;
 
 int main (int argc, const char* argv[])
 {
-    System s=Config("http://shanon.iuii.ua.es/test/home/").maxDevices(1);
-    s.LoadDevices();
+    System s=Config("http://shanon.iuii.ua.es/test/");
+    std::cout<<s.ActivateScene(Bienvenida)<<std::endl;
+
+    //System s=Config("http://shanon.iuii.ua.es/test/").maxDevices(1);
+    //s.LoadDevices();
     //std::cout<<s.getDeviceById(33)->getName()<<std::endl;
     //std::cout<<s.getDeviceById(33)->getFuncionalityValue("dataKwh")<<std::endl;
     //std::cout<<s.getDeviceById(33)->getFuncionality("dataKwh")->getValue()<<std::endl;
     //std::cout<<s.getDeviceById(32)->setFuncionalityValue("moveBlind",0)<<std::endl;
     //std::cout<<s.getDeviceById(32)->getFuncionality("moveBlind")->getValue()<<std::endl;
-    s.PrintDevices();
+    //s.PrintDevices();
 
     //std::cout<<s.getDeviceById(28)->getFuncionality("dataTemp")->getName()<<std::endl;
     //std::cout<<s.getDeviceById(28)->getFuncionality("dataTemp")->getRange().first<<std::endl;

@@ -17,6 +17,7 @@
 #include <curl/easy.h>
 
 #include "device.h"
+#include "scene.h"
 
 
 
@@ -44,6 +45,7 @@ public:
     vector<Device_ptr> getDevicesByService(SERVICE service);
     vector<Device_ptr> getDevicesFromRoom(string room);
     Device_ptr getDeviceById(int id);
+    bool ActivateScene(SCENE scene);
 };
 
 class Config

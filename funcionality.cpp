@@ -43,8 +43,8 @@ bool Funcionality::setValue(int new_value)
     if(new_value<min_range || new_value>max_range)
         return false;
 
-    string url=host;
-    url.append("device/").append(to_string<int>(id_padre));
+    string url=host+"home";
+    url.append("/device/").append(to_string<int>(id_padre));
     url.append("/setvalue/").append(getName()+"/"+to_string<int>(new_value));
 
 
@@ -155,7 +155,7 @@ pair<int,int> Funcionality::getRange()
 string Funcionality::getValue()
 {
 
-    string url=host+"device/"+to_string<int>(id_padre)+"/getvalue/"+getName();
+    string url=host+"home/device/"+to_string<int>(id_padre)+"/getvalue/"+getName();
     string dev="";
 
     xmlDocPtr doc;

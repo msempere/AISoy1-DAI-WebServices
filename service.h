@@ -7,7 +7,7 @@
 #include <string>
 
 typedef enum{
-    Alarm,
+    Alarm=1,
     Blinds,
     Lighting,
     Meters,
