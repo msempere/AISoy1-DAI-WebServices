@@ -12,19 +12,27 @@
 
 using namespace std;
 
-typedef enum{
-    Bienvenida=1,
-    Salida,
-    Cine,
-    Lectura,
-    Noche,
-    Despertar,
-    Iluminacion_media,
-    Iluminacion_maxima
-} SCENE;
+struct SceneElement{
+    string name;
+    string description;
+};
 
-const string activate_scene_url="scenes/enable/";
+class Scene{
+    public:
+        Scene();
+        bool activate();
+        string getDescription(){return scene.description;};
+        string getName(){return scene.name;};
+        void setName(string name){scene.name=name;};
+        void setDescription(string description){scene.description=description;};
+        void setScenesURL(string url){scenesURL=url;};
+        void setHost(string url){host=url;};
+        void Print();
 
-bool activateScene(string host,SCENE scene);
-
+    private:
+        SceneElement scene;
+        string host;
+        string scenesURL;
+        bool getResponse(string url);
+};
 #endif // SCENE_H

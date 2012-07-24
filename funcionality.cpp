@@ -37,16 +37,7 @@ void Funcionality::Print()
 }
 
 
-bool Funcionality::setValue(int new_value)
-{
-
-    if(new_value<min_range || new_value>max_range)
-        return false;
-
-    string url=host+"home";
-    url.append("/device/").append(to_string<int>(id_padre));
-    url.append("/setvalue/").append(getName()+"/"+to_string<int>(new_value));
-
+bool Funcionality::getResponse(string url){
 
     xmlDocPtr doc;
     bool dev=false;
@@ -82,6 +73,7 @@ bool Funcionality::setValue(int new_value)
             {
                 if(strcmp((char *)xmlGetProp(cur_node,(xmlChar *)"type"),"error")==0)
                 {
+                    dev=false;
                 }
                 else
                 {
@@ -95,14 +87,20 @@ bool Funcionality::setValue(int new_value)
 
         }
     }
-
-    //xmlFreeNode(cur_node);
-    //xmlFreeNode(child_node);
-    //xmlFreeNode(root);
-    //xmlFreeNode(child_func);
-    //xmlFreeDoc(doc);
-    //xmlCleanupParser();
     return dev;
+}
+
+bool Funcionality::toggle(){
+
+    string url=host+devicesURL+"/device/"+to_string<int>(id_padre)+"/toggle/"+getName();
+    return getResponse(url);
+}
+
+
+bool Funcionality::setValue(int new_value)
+{
+    string url=host+devicesURL+"/device/"+to_string<int>(id_padre)+"/write/"+getName()+"/"+to_string<int>(new_value);
+    return getResponse(url);
 }
 
 std::vector<std::string> & Funcionality::split(const std::string &s, char delim, std::vector<std::string> &elems)
@@ -155,7 +153,7 @@ pair<int,int> Funcionality::getRange()
 string Funcionality::getValue()
 {
 
-    string url=host+"home/device/"+to_string<int>(id_padre)+"/getvalue/"+getName();
+    string url=host+devicesURL+"/device/"+to_string<int>(id_padre)+"/read/"+getName();
     string dev="";
 
     xmlDocPtr doc;
@@ -191,6 +189,7 @@ string Funcionality::getValue()
 
                 if(strcmp((char *)xmlGetProp(cur_node,(xmlChar *)"type"),"error")==0)
                 {
+                    dev="Error.";
                 }
                 else
                 {

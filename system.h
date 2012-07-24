@@ -26,6 +26,7 @@ using namespace std;
 
 //const string baseUrl="http://shanon.iuii.ua.es/test/home/";
 typedef boost::shared_ptr<Device> Device_ptr;
+typedef boost::shared_ptr<Scene> Scene_ptr;
 
 class Config;
 
@@ -33,20 +34,27 @@ class System
 {
 private:
     vector<Device_ptr> devices;
+    vector<Scene_ptr> scenes;
     int atoi(string n);
     int maxDevices;
     string host;
+    string devicesURL;
+    string scenesURL;
+    string ttsURL;
     bool loaded_devices;
+    bool loaded_scenes;
 
 public:
     System(const Config &c);
     ~System();
     bool LoadDevices();
+    bool LoadScenes();
     void PrintDevices();
+    void PrintSceneces();
     vector<Device_ptr> getDevicesByService(SERVICE service);
     vector<Device_ptr> getDevicesFromRoom(string room);
     Device_ptr getDeviceById(int id);
-    bool ActivateScene(SCENE scene);
+    bool ActivateScene(string scene);
 };
 
 class Config
@@ -54,11 +62,17 @@ class Config
     private:
         friend class System;
         string host;
+        string devicesURL;
+        string scenesURL;
+        string ttsURL;
         int maxNumDevices;
 
     public:
         Config(string _host){host=_host; maxNumDevices=INT_MAX;};
-        Config &maxDevices(int max){maxNumDevices=max; return *this;}
+        Config &MaxDevices(int max){maxNumDevices=max; return *this;}
+        Config &DevicesURL(string url){devicesURL=url; return *this;}
+        Config &ScenesURL(string url){scenesURL=url; return *this;}
+        Config &TtsURL(string url){ttsURL=url; return *this;}
 
 
 

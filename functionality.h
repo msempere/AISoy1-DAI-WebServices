@@ -21,6 +21,7 @@ class Funcionality
 {
 private:
     string host;
+    string devicesURL;
     int id_padre;
     string name;
     string description;
@@ -31,6 +32,8 @@ private:
     int max_range;
     std::vector<std::string> & split(const std::string &s, char delim, std::vector<std::string> &elems);
     std::vector<std::string> split(const std::string &s, char delim);
+    bool getResponse(string url);
+
 public:
     Funcionality();
     ~Funcionality();
@@ -42,6 +45,7 @@ public:
     void setReturnValue(string _returnValue){returnValue=_returnValue;};
     void setIdPadre(int id){id_padre=id;};
     void setHost(string h){host=h;};
+    void setDevicesURL(string h){devicesURL=h;};
 
     string getName(){return name;};
     string getDescription(){return description;};
@@ -51,6 +55,7 @@ public:
 
     string getValue();
     bool setValue(int new_value);
+    bool toggle();
 
     void Print();
 };
