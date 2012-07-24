@@ -10,10 +10,15 @@
 #include <libxml2/libxml/xmlversion.h>
 #include <libxml2/libxml/xmlreader.h>
 
+#include <boost/algorithm/string/replace.hpp>
+
+#include "utils.h"
+
 using namespace std;
 
 struct SceneElement{
     string name;
+    string parsedName;
     string description;
 };
 
@@ -23,7 +28,8 @@ class Scene{
         bool activate();
         string getDescription(){return scene.description;};
         string getName(){return scene.name;};
-        void setName(string name){scene.name=name;};
+        string getParsedName(){return scene.parsedName;};
+        void setName(string name){scene.name=name; scene.parsedName=boost::replace_all_copy(name, "-", " ");};
         void setDescription(string description){scene.description=description;};
         void setScenesURL(string url){scenesURL=url;};
         void setHost(string url){host=url;};

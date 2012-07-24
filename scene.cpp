@@ -1,16 +1,10 @@
 #include "scene.h"
 
-template <class T>
-inline std::string to_string (const T& t)
-{
-    std::stringstream ss;
-    ss << t;
-    return ss.str();
-}
 
 Scene::Scene(){
-    scene.description=scene.name=host=scenesURL="";
+    scene.description=scene.name=host=scenesURL=scene.parsedName="";
 }
+
 
 void Scene::Print(){
     std::cout<<"------SCENE------"<<std::endl;
