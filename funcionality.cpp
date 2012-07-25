@@ -15,7 +15,7 @@ Funcionality::~Funcionality()
 void Funcionality::Print()
 {
 
-    std::cout<<"\tNAME: "+name<<std::endl;
+    std::cout<<"\tNAME: "+name<<" || "<<spanishName<<std::endl;
     std::cout<<"\tDECRIPTION: "+description<<std::endl;
     std::cout<<"\tRANGE: "+range<<std::endl;
     std::cout<<"\tINPUTVALUE: "+inputValue<<std::endl;

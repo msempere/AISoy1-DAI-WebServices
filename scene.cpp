@@ -8,7 +8,7 @@ Scene::Scene(){
 
 void Scene::Print(){
     std::cout<<"------SCENE------"<<std::endl;
-    std::cout<<"NAME: "<<scene.name<<std::endl;
+    std::cout<<"NAME: "<<scene.name<<" || "<<scene.spanishName<<std::endl;
     std::cout<<"DESCRIPTION: "<<scene.description<<std::endl<<std::endl;
 }
 
@@ -29,7 +29,7 @@ bool Scene::getResponse(string url){
 
     if (doc == NULL)
     {
-        std:cerr<<"Error: imposible parsear "+url<<std::endl;
+        cerr<<"Error: imposible parsear "+url<<std::endl;
         exit(-1);
     }
 
@@ -44,8 +44,7 @@ bool Scene::getResponse(string url){
         exit(-1);
     }
 
-    xmlNode *cur_node, *child_node, *child_func;
-    bool encontrado=false;
+    xmlNode *cur_node;
 
     for(cur_node = root->children; cur_node != NULL; cur_node = cur_node->next)
     {

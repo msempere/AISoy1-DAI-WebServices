@@ -18,6 +18,7 @@
 
 #include "device.h"
 #include "scene.h"
+#include "accion.h"
 
 
 
@@ -55,6 +56,7 @@ public:
     vector<Device_ptr> getDevicesFromRoom(string room);
     Device_ptr getDeviceById(int id);
     bool ActivateScene(string scene);
+    void RealizarAccion(string accion,string funcionalidad, string habitacion);
 };
 
 class Config

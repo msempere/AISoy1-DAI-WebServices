@@ -11,11 +11,12 @@ int main (int argc, const char* argv[])
     //std::cout<<s.ActivateScene(Bienvenida)<<std::endl;
 
     System s=Config("http://shanon.iuii.ua.es/test").DevicesURL("/rest/home").ScenesURL("/rest/scenes").TtsURL("/rest/tts");
-    //s.LoadDevices();
-    s.LoadScenes();
+    s.LoadDevices();
+    //s.LoadScenes();
     //s.PrintSceneces();
-    std::cout<<s.ActivateScene("bienvenida")<<std::endl;
+    //std::cout<<s.ActivateScene("bienvenida")<<std::endl;
     //s.PrintDevices();
+    s.RealizarAccion(std::string("subir"),std::string("regulador"),std::string("salon"));
 
 
     //std::cout<<s.getDeviceById(33)->getName()<<std::endl;

@@ -18,6 +18,7 @@ private:
     string host;
     string id;
     string name;
+    string spanishName;
     SERVICE services;
     string room;
     string type;
@@ -32,7 +33,7 @@ public:
     ~Device();
     Device(string _id,string _name, string _service, string _room, string _type, string _techno, string _locationCoor, string _description, string _typeOfCompo);
     void setId(string _id){id=_id;};
-    void setName(string _name){name=_name;};
+    void setName(string _name){name=_name; spanishName=Util::getSpanishName(_name);};
     void setServices(SERVICE _services){services=_services;};
     void setRoom(string _room){room=_room;};
     void setType(string _type){type=_type;};
@@ -47,8 +48,10 @@ public:
     SERVICE getServices(){return services;};
     string getName(){return name;};
     string getRoom(){return room;};
+    string getRoom_ES(){return Util::getSpanishName(room);};
     string getFuncionalityValue(string f);
     Funcionality* getFuncionality(string name);
+    Funcionality* getFuncionality_ES(string name);
 
     bool setFuncionalityValue(string f, int v);
 

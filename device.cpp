@@ -12,7 +12,7 @@ Device::~Device(){
 void Device::Print(){
     std::cout<<"------START DEVICE------"<<std::endl;
     std::cout<<"ID: "<<id<<std::endl;
-    std::cout<<"NAME: "<<name<<std::endl;
+    std::cout<<"NAME: "<<name<<" || "<<spanishName<<std::endl;
     std::cout<<"SERVICES: "<<services<<std::endl;
     std::cout<<"ROOM: "<<room<<std::endl;
     std::cout<<"TYPE: "<<type<<std::endl;
@@ -42,6 +42,14 @@ void Device::AddFuncionality(Funcionality  f){
 Funcionality* Device::getFuncionality(string name){
     for(int i=0;i<functionalities.size();i++){
         if(functionalities.at(i).getName()==name){
+            return &functionalities.at(i);
+        }
+    }
+}
+
+Funcionality* Device::getFuncionality_ES(string name){
+    for(int i=0;i<functionalities.size();i++){
+        if(functionalities.at(i).getSpanishName()==name){
             return &functionalities.at(i);
         }
     }

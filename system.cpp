@@ -250,8 +250,35 @@ vector<Device_ptr> System::getDevicesFromRoom(string room){
 bool System::ActivateScene(string scene){
 
     std::vector<Scene_ptr>::iterator iter;
+
     for(iter=scenes.begin();iter!=scenes.end();++iter)
         if((*iter)->getName()==scene)
             return (*iter)->activate();
+}
+
+
+
+void System::RealizarAccion(string accion,string funcionalidad, string habitacion){
+
+    if(accion.compare("subir")==0 || accion.compare("bajar")==0){
+
+        std::vector<Device_ptr>::iterator iter;
+        Funcionality *func;
+        bool encontrado=false;
+
+        for(iter=devices.begin();iter!=devices.end() && !encontrado;++iter){
+
+            if((*iter)->getRoom_ES().compare(habitacion)==0){
+                func=(*iter)->getFuncionality_ES(funcionalidad);
+                if(func!=NULL){
+                    std::cout<<"SI EXISTE ESA FUNCIONALIDAD "<<funcionalidad<<" "<<habitacion<<std::endl;
+                    encontrado=true;
+                }
+            }
+        }
+
+        if(encontrado==false)
+            std::cout<<"NO EXISTE ESA FUNCIONALIDAD"<<std::endl;
+    }
 }
 

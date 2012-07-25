@@ -13,6 +13,8 @@
 #include <libxml2/libxml/xmlversion.h>
 #include <libxml2/libxml/xmlreader.h>
 
+#include "utils.h"
+
 using namespace std;
 
 //const string baseUrl="http://shanon.iuii.ua.es/test/home/";
@@ -24,6 +26,7 @@ private:
     string devicesURL;
     int id_padre;
     string name;
+    string spanishName;
     string description;
     string range;
     string inputValue;
@@ -38,7 +41,7 @@ public:
     Funcionality();
     ~Funcionality();
     Funcionality(string _name,string _description, string _range, string _inputValue, string _returnValue);
-    void setName(string _name){name=_name;};
+    void setName(string _name){name=_name; spanishName=Util::getSpanishName(_name);};
     void setDescription(string _description){description=_description;};
     void setRange(string _range);
     void setInputValue(string _inputValue){inputValue=_inputValue;};
@@ -48,6 +51,7 @@ public:
     void setDevicesURL(string h){devicesURL=h;};
 
     string getName(){return name;};
+    string getSpanishName(){return spanishName;};
     string getDescription(){return description;};
     string getInputValue(){return inputValue;};
     string getReturnValue(){return returnValue;};
